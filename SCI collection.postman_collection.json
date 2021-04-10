@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "8b9da441-5f2d-427f-9264-f667bd00eb7d",
+		"name": "SCI collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "077066a6-96f4-4b71-965d-3a4da4fa96cf",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"token\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bc511464-931f-4693-b742-aa21cc3184b9",
+						"exec": [
+							"pm.collectionVariables.set(\"BaseURL\", \"10.0.0.98\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/users/login/",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get reports",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get report 1 - using token in URL",
+			"protocolProfileBehavior": {
+				"disableCookies": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/1?access_token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"1"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get report 1 - using cookie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/1",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get report 10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/10",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client traffic - report 1, section 13",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"limit\": 100,\n    \"granularity\": \"all\",\n    \"metric\": \"traffic\",\n    \"start\": \"2020-10-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/1/sections/13/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"1",
+						"sections",
+						"13",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get traffic trend - report 2, section 22",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"granularity\": \"fifteen_minute\",\n    \"metric\": \"traffic\",\n    \"start\": \"2020-10-08T08:18:29-07:00\",\n    \"end\": \"2020-11-11T08:18:29-07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/2/sections/22/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"2",
+						"sections",
+						"22",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top SSIDs by Traffic - report 4, section 40",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"limit\": 100,\n    \"granularity\": \"all\",\n    \"metric\": \"traffic\",\n    \"start\": \"2020-10-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/4/sections/40/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"4",
+						"sections",
+						"40",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client details - report 1, section 14",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"2020-09-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\",\n    \"limit\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/1/sections/14/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"1",
+						"sections",
+						"14",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client details - report 1, section 14 (filter per client Mac)",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"granularity\": \"all\",\n    \"metric\": \"traffic\",\n    \"start\": \"2020-10-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\",\n    \"filter\": {\n        \"type\": \"and\",\n        \"fields\": [\n            {\n                \"type\": \"selector\",\n                \"dimension\": \"clientMac\",\n                \"value\": \"B8:63:4D:A8:C5:23\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/1/sections/14/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"1",
+						"sections",
+						"14",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ssid traffic - report 4, section 41",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"granularity\": \"all\",\n    \"start\":\"2020-10-07T18:27:58-08:00\",\n    \"end\":\"2020-11-08T18:27:58-08:00\",\n    \"limit\": 100,\n    \"metric\": \"traffic\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/4/sections/41/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"4",
+						"sections",
+						"41",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get sessions - report 6, section 33",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"2020-11-08T23:00:00-07:00\",\n    \"end\": \"2020-11-09T02:30:00-07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/6/sections/33/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"6",
+						"sections",
+						"33",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get AP details - report 9, section 60 (filter per ap Mac)",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"granularity\": \"all\",\n    \"metric\":\"traffic\",\n    \"start\": \"2020-10-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\",\n    \"limit\": 200\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/9/sections/60/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"9",
+						"sections",
+						"60",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get AP reboots - report 8, section 43",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"2020-10-29T08:18:29-07:00\",\n    \"end\": \"2020-10-30T08:18:29-07:00\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/8/sections/43/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"8",
+						"sections",
+						"43",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Anomalies - report 11, section 110",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"2020-11-08T17:45:04-08:00\",\n    \"end\": \"2020-11-09T17:45:04-08:00\",\n    \"filter\": {\n        \"type\": \"and\",\n        \"fields\": [\n            {\n                \"type\": \"selector\",\n                \"dimension\": \"apMac\",\n                \"value\": \"34:8F:27:2B:81:80\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/11/sections/110/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"11",
+						"sections",
+						"110",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client details, session - report 12, section 92 (filter by client Mac)",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"limit\": 20000,\n    \"granularity\": \"all\",\n    \"start\": \"2020-11-08T08:18:29-07:00\",\n    \"end\": \"2020-11-11T08:18:29-07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{BaseURL}}/api/reports/6/sections/33/data",
+					"protocol": "https",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"6",
+						"sections",
+						"33",
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4ad884bc-eb5e-4810-b5ec-e34582297af9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9dbdcd8a-8d3a-429d-8a2c-69bf767df16c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e1697697-b333-4d4f-89be-cbd8a1bac123",
+			"key": "BaseURL",
+			"value": "12.33.223.89"
+		},
+		{
+			"id": "10803604-253b-4710-9525-121a44f38d09",
+			"key": "token",
+			"value": "KDXHESqmm2hVIjyi5ftN4JsVrq2TitjKx2fKQHVbnhiaJFEBAvYpAWc1HCkiK8yQ"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
