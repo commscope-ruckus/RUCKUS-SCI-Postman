@@ -24,7 +24,7 @@
 					"script": {
 						"id": "bc511464-931f-4693-b742-aa21cc3184b9",
 						"exec": [
-							"pm.collectionVariables.set(\"BaseURL\", \"10.0.0.98\");"
+							"pm.collectionVariables.set(\"BaseURL\", \"A.B.C.D\");"
 						],
 						"type": "text/javascript"
 					}
