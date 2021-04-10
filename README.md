@@ -1,2 +1,2 @@
 # SCI-Postman
-Postman collection to access SCI
+Postman collection to access Ruckus SCI
